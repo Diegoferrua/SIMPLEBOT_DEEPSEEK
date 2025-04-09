@@ -36,9 +36,15 @@ edita el archivo clave_api.txt e ingresa tu propia clave api
 with open("clave_api.txt") as archivo:
 	openai.api_key = archivo.readline()
 ```
-3. **Uso**
+3. **Uso Consola**
 ```bash
 python chatbot_gen.py
+```
+Sigue las instrucciones en pantalla para chatear con SimpleBot y explorar sus funcionalidades
+
+3.1. **Uso Streamlit**
+```bash
+streamlit run main_str.py
 ```
 Sigue las instrucciones en pantalla para chatear con SimpleBot y explorar sus funcionalidades.
 
