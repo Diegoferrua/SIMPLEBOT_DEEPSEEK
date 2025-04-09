@@ -20,12 +20,12 @@ contexto.append({'role':'system', 'content':f"""{reglas} {producto_csv}"""})
 
 #enviamos mensaje al modelo
 def enviar_mensajes(messages, model="gpt-4", temperature=0):
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model=model,
         messages=messages,
         temperature=temperature,
     )
-    return response.choices[0].message["content"]
+    return response.choices[0].message.content
 
 #leemos el mensaje + agregamos al contexto | enviamos el contexto | + agregar respuesta al contexto
 def recargar_mensajes(charla):
