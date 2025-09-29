@@ -1,53 +1,70 @@
-# SimpleBot con ChatGPT-4
+# Chatbot GenAI con DeepSeek y Streamlit
 
-SimpleBot es un chatbot inteligente diseñado para ofrecer productos siguiendo reglas específicas de interacción, como asegurar un trato amable y gestionar servicios como brindar informacion util segun el tipo de envio Utilizando la potente tecnología de ChatGPT-4 de OpenAI, SimpleBot puede comprender y procesar solicitudes complejas, proporcionando respuestas y recomendaciones personalizadas a los usuarios.
+Este proyecto es un chatbot que utiliza la API de DeepSeek y una interfaz web sencilla con Streamlit.
 
-## Descripción
+## Requisitos
 
-Este proyecto implementa una arquitectura básica que permite crear un chatbot personalizado con capacidades avanzadas de comprensión y generación de texto. A través de un conjunto de reglas predefinidas, SimpleBot puede ofrecer productos y servicios de manera eficiente y amigable, asegurando una experiencia de usuario óptima. Desarrollado en Python y utilizando la biblioteca principal de OpenAI, este bot es capaz de manejar conversaciones complejas, entender las necesidades del usuario, y actuar de acuerdo con las políticas de servicio establecidas, como el cobro de delivery y el mantenimiento de un trato respetuoso en todo momento.
+- Python 3.8+
+- Una clave válida de DeepSeek API
 
-## Características
+## Instalación
 
-- **Interacción Natural**: Utiliza ChatGPT-4 para generar respuestas naturales y coherentes.
-- **Reglas Personalizadas**: Implementa reglas específicas para la oferta de productos y servicios.
-- **Identificación de forma de envió y pago**: Capacidad para gestionar solicitudes de acuerdo al tipo de envió y pago
-- **Fácil de Configurar**: Desarrollado en Python con una configuración simple y documentación clara.
+1. Clona el repositorio.
+2. (Opcional pero recomendado) Crea y activa un entorno virtual:
 
-## Requisitos Previos
+   **Con venv:**
+   ```bash
+   python -m venv env_genai
+   # En Windows:
+   env_genai\Scripts\activate
+   # En Linux/Mac:
+   source env_genai/bin/activate
+   ```
 
-Antes de comenzar, asegúrate de tener lo siguiente:
+   **Con conda:**
+   ```bash
+   conda create -n env_genai python=3.11
+   conda activate env_genai
+   ```
 
-- Python 3.8 o superior
-- Acceso a la API de OpenAI (necesitarás una clave API de OpenAI)
+3. Instala las dependencias:
 
-## Configuración
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Para configurar SimpleBot en tu entorno local, sigue estos pasos:
+4. Crea el archivo `.env` en la raíz del proyecto con tu clave DeepSeek:
 
-1. **Clonar el Repositorio**
+   ```bash
+   DEEPSEEK_API_KEY=tu_clave_deepseek_aqui
+   ```
 
-```bash
-git clone https://github.com/macespinoza/simplebot-chatgpt4.git
-cd simplebot-chatgpt4
-```
-2. **Configurar las Claves de API**
-edita el archivo clave_api.txt e ingresa tu propia clave api
-```bash
-with open("clave_api.txt") as archivo:
-	openai.api_key = archivo.readline()
-```
-3. **Uso Consola**
-```bash
-python chatbot_gen.py
-```
-Sigue las instrucciones en pantalla para chatear con SimpleBot y explorar sus funcionalidades
+5. Coloca tus archivos `icenter.csv` y `reglas.txt` en la raíz del proyecto.
 
-3.1. **Uso Streamlit**
-```bash
-streamlit run main_str.py
-```
-Sigue las instrucciones en pantalla para chatear con SimpleBot y explorar sus funcionalidades.
+## Uso
 
+1. Ejecuta la aplicación web:
+
+   ```bash
+   streamlit run app.py
+   ```
+
+2. Abre el navegador en la URL que muestra Streamlit (por defecto http://localhost:8501).
+3. Escribe tus mensajes en el chat y conversa con el bot.
+
+## Estructura de archivos
+
+- `app.py`: Interfaz web con Streamlit.
+- `chatbot_gen.py`: Lógica del chatbot y conexión con DeepSeek.
+- `.env`: Clave privada de DeepSeek (no compartir).
+- `requirements.txt`: Dependencias del proyecto.
+- `icenter.csv`: Productos o datos para el bot.
+- `reglas.txt`: Reglas o instrucciones para el bot.
+
+## Notas
+
+- No subas tu archivo `.env` a repositorios públicos.
+- Si tienes problemas con la codificación de archivos, asegúrate de que estén en UTF-8.
 ## Contribuir
 
 ¡Las contribuciones son bienvenidas! Si deseas contribuir al proyecto, por favor:

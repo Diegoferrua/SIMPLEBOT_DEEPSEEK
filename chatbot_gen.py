@@ -3,14 +3,21 @@
 import os
 import openai
 import sys
+import requests
+from dotenv import load_dotenv  # <-- nuevo import
 
-with open("clave_api.txt") as archivo:
-    openai.api_key = archivo.readline()
+# Cargar variables de entorno desde .env
+load_dotenv()
+
+# Obtener la clave desde la variable de entorno
+api_key = os.getenv("DEEPSEEK_API_KEY")
+openai.api_key = api_key
+os.environ["OPENAI_API_KEY"] = api_key
     
-with open("productos_textil.csv") as archivo:
+with open("icenter.csv", encoding="utf-8") as archivo:
     producto_csv = archivo.read()
-    
-with open("reglas.txt") as archivo:
+
+with open("reglas.txt", encoding="utf-8") as archivo:
     reglas = archivo.read()
     
 #Creamos la memoria temporal
@@ -18,14 +25,21 @@ contexto = []
 #registramos las reglas y productos
 contexto.append({'role':'system', 'content':f"""{reglas} {producto_csv}"""})
 
-#enviamos mensaje al modelo
-def enviar_mensajes(messages, model="gpt-4", temperature=0):
-    response = openai.chat.completions.create(
-        model=model,
-        messages=messages,
-        temperature=temperature,
-    )
-    return response.choices[0].message.content
+#enviamos mensaje al modelo usando DeepSeek API
+def enviar_mensajes(messages, model="deepseek-chat", temperature=0):
+    url = "https://api.deepseek.com/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": model,
+        "messages": messages,
+        "temperature": temperature
+    }
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status()
+    return response.json()["choices"][0]["message"]["content"]
 
 #leemos el mensaje + agregamos al contexto | enviamos el contexto | + agregar respuesta al contexto
 def recargar_mensajes(charla):
@@ -47,3 +61,4 @@ def main():
             
 if __name__=='__main__':
     main()
+
